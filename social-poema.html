@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>social poema</title>
+    <style>
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f7f2; /* Color de fondo crema */
+            color: #333;
+            line-height: 1.6;
+            text-align: center;
+        }
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+        }
+        h1 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+        form {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fafafa; /* Color de fondo formulario */
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: left;
+        }
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 16px;
+            outline: none;
+        }
+        button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .poem-container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fafafa; /* Color de fondo contenedor poemas */
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: left;
+        }
+        .poem {
+            margin-bottom: 20px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+        }
+        .poem h2 {
+            color: #007bff;
+        }
+        .user-container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fafafa; /* Color de fondo contenedor usuarios */
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: left;
+        }
+        .user {
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+        }
+        .user h2 {
+            color: #007bff;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Aqui publicas tus poemas</h1>
+    </header>
+
+    <!-- Formulario de Registro -->
+    <form id="registerForm">
+        <h2>Registro</h2>
+        <input type="text" id="username" placeholder="Nombre de usuario" required><br><br>
+        <input type="email" id="email" placeholder="Correo electrónico" required><br><br>
+        <input type="password" id="password" placeholder="Contraseña" required><br><br>
+        <button type="submit">Registrarse</button>
+    </form>
+
+    <!-- Formulario de Subir Poema -->
+    <form id="poemForm" style="display: none;">
+        <h2>Subir Poema</h2>
+        <input type="text" id="title" placeholder="Título del poema" required><br><br>
+        <textarea id="content" placeholder="Contenido del poema" rows="6" required></textarea><br><br>
+        <button type="submit">Subir Poema</button>
+    </form>
+
+    <!-- Contenedor de Poemas -->
+    <div class="poem-container" id="poemContainer" style="display: none;">
+        <!-- Poemas subidos aparecerán aquí -->
+    </div>
+
+    <!-- Contenedor de Usuarios con Poemas -->
+    <div class="user-container" id="userContainer" style="display: none;">
+        <!-- Usuarios con poemas aparecerán aquí -->
+    </div>
+
+    <script>
+        // Función para guardar un usuario en el almacenamiento local del navegador
+        function saveUser(username, email, password) {
+            let users = JSON.parse(localStorage.getItem('users')) || [];
+            users.push({ username, email, password });
+            localStorage.setItem('users', JSON.stringify(users));
+            localStorage.setItem('currentUser', username); // Establecer el usuario actual al registrarse
+        }
+
+        // Función para guardar un poema en el almacenamiento local del navegador
+        function savePoem(title, content, username) {
+            let poems = JSON.parse(localStorage.getItem('poems')) || [];
+            poems.push({ title, content, username });
+            localStorage.setItem('poems', JSON.stringify(poems)); 
+        }
+
+        // Función para mostrar los poemas almacenados en el navegador
+        function displayPoems() {
+            const poemContainer = document.getElementById('poemContainer');
+            poemContainer.innerHTML = '';
+
+            const poems = JSON.parse(localStorage.getItem('poems')) || [];
+            const currentUser = localStorage.getItem('currentUser'); // Obtener el nombre de usuario actual
+
+            poems.forEach((poem, index) => {
+                const poemDiv = document.createElement('div');
+                poemDiv.classList.add('poem');
+                poemDiv.innerHTML = `
+                    <h2>${poem.title}</h2>
+                    <p>${poem.content}</p>
+                    ${poem.username === currentUser ? `<button onclick="deletePoem(${index})">Eliminar</button>` : ''}
+                `;
+                poemContainer.appendChild(poemDiv);
+            });
+
+            // Mostrar el contenedor de poemas
+            poemContainer.style.display = 'block';
+        }
+
+        // Función para eliminar un poema
+        function deletePoem(index) {
+            let poems = JSON.parse(localStorage.getItem('poems')) || [];
+            const username = poems[index].username; // Obtener el nombre de usuario del poema
+            const currentUser = localStorage.getItem('currentUser'); // Obtener el nombre de usuario actual
+
+            if (username === currentUser) { // Verificar si el poema pertenece al usuario actual
+                poems.splice(index, 1); // Eliminar el poema del arreglo
+                localStorage.setItem('poems', JSON.stringify(poems));
+                displayPoems(); 
+            } else {
+                alert("No tienes permiso para eliminar este poema.");
+            }
+        }
+
+        // Función para mostrar los usuarios que han publicado poemas en la pantalla de inicio
+        function displayUsersWithPoems() {
+            const usersWithPoems = JSON.parse(localStorage.getItem('usersWithPoems')) || [];
+            const userContainer = document.getElementById('userContainer');
+            userContainer.innerHTML = '';
+
+            userContainer.innerHTML = '<h2>Usuarios con poemas:</h2>';
+
+            usersWithPoems.forEach(user => {
+                const userDiv = document.createElement('div');
+                userDiv.classList.add('user');
+                userDiv.innerHTML = `
+                    <p>Nombre de usuario: ${user.username}</p>
+                    <p>Correo electrónico: ${user.email}</p>
+                    <hr>
+                `;
+                userContainer.appendChild(userDiv);
+            });
+
+            // Mostrar el contenedor de usuarios con poemas
+            userContainer.style.display = 'block';
+        }
+
+        // Función para guardar usuarios con poemas en el almacenamiento local
+        function saveUserWithPoems(username, email) {
+            let usersWithPoems = JSON.parse(localStorage.getItem('usersWithPoems')) || [];
+            usersWithPoems.push({ username, email });
+            localStorage.setItem('usersWithPoems', JSON.stringify(usersWithPoems));
+        }
+
+        // Manejar el envío del formulario de registro
+        document.getElementById('registerForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const username = document.getElementById('username').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            saveUser(username, email, password);
+            saveUserWithPoems(username, email); // Guardar usuario con poema
+
+            // Limpiar el formulario después de registrar al usuario
+            document.getElementById('username').value = '';
+            document.getElementById('email').value = '';
+            document.getElementById('password').value = '';
+
+            // Ocultar el formulario de registro y mostrar el formulario de subir poema
+            document.getElementById('registerForm').style.display = 'none';
+            document.getElementById('poemForm').style.display = 'block';
+            displayUsersWithPoems(); // Mostrar los usuarios con poemas
+        });
+
+        // Manejar el envío del formulario para subir un poema
+        document.getElementById('poemForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const title = document.getElementById('title').value;
+            const content = document.getElementById('content').value;
+            const username = localStorage.getItem('currentUser'); // Obtener el nombre de usuario actual
+
+            savePoem(title, content, username);
+            displayPoems();
+
+            // Limpiar el formulario después de subir el poema
+            document.getElementById('title').value = '';
+            document.getElementById('content').value = '';
+        });
+
+        
+        window.addEventListener('load', function() {
+            document.getElementById('registerForm').style.display = 'block';
+            displayPoems(); 
+            displayUsersWithPoems(); // Mostrar los usuarios con poemas
+        });
+    </script>
+</body>
+</html>    
