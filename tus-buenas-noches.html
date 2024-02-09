@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>poema de buenas noches </title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: black; /* Fondo negro */
+            overflow: hidden; /* Oculta el desbordamiento */
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: 2px solid white;
+            background-color: transparent;
+            color: white;
+            cursor: pointer;
+            position: absolute;
+            top: 20px;
+            left: 20px;
+        }
+
+        .star {
+            position: absolute;
+            background-color: white;
+            width: 2px;
+            height: 2px;
+            pointer-events: none; /* Evita que las estrellas bloqueen eventos de ratón */
+        }
+
+        #poemContainer {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 24px;
+            text-align: center;
+            display: none; /* El contenedor de poema está oculto al principio */
+        }
+    </style>
+</head>
+<body>
+    <button id="startButton">Mostrar Lluvia de Estrellas</button>
+    <div id="poemContainer"></div>
+
+    <script>
+        let clickCount = 0;
+
+        // Función para crear una estrella
+        function createStar() {
+            // Crea un elemento div para representar una estrella
+            const star = document.createElement('div');
+            star.classList.add('star');
+
+            // Asigna una posición aleatoria en el eje x y una posición inicial arriba del todo
+            star.style.left = `${Math.random() * window.innerWidth}px`;
+            star.style.top = '0';
+
+            // Añade la estrella al cuerpo del documento
+            document.body.appendChild(star);
+
+            // Calcula una velocidad aleatoria para la estrella
+            const speed = Math.random() * 5 + 1;
+
+            // Crea una animación de la estrella que la hace caer desde arriba hasta abajo
+            const animation = star.animate(
+                [
+                    { transform: `translateY(${window.innerHeight}px)` } // Desde la parte superior de la ventana
+                ],
+                {
+                    duration: speed * 1000, // Duración de la animación según la velocidad
+                    iterations: Infinity // La animación se repite indefinidamente
+                }
+            );
+
+            // Establece una velocidad de reproducción aleatoria para variar la velocidad de las estrellas
+            animation.playbackRate = Math.random() * 2 + 0.5;
+        }
+
+        // Función para inicializar la lluvia de estrellas
+        function initStars() {
+            // Crea 100 estrellas con un ligero retraso
+            for (let i = 0; i < 100; i++) {
+                setTimeout(createStar, Math.random() * 3000);
+            }
+        }
+
+        // Función para mostrar el poema de buenas noches letra por letra
+        function showPoem() {
+            const poemContainer = document.getElementById('poemContainer');
+            const poemText = "Bajo el manto de la noche oscura, brillan las estrellas con dulzura la luna llena, con su luz serena, nos acompaña con su luz amena. En el silencio de la noche fría, se cuela el sueño y nos da alegría, en el abrazo de la noche oscura descansa ahora que el día apura. Que tus sueños sean como un cuento, donde reinen la paz y el amor honesto, que la noche sea tu dulce abrigo, y despiertes con un nuevo amigo. Buenas noches, que sueñes bonito, que el descanso sea tu granito, para enfrentar un nuevo amanecer, con la fuerza que te hace florecer.";
+
+            let index = 0;
+
+            const intervalId = setInterval(() => {
+                if (index < poemText.length) {
+                    poemContainer.textContent += poemText[index];
+                    index++;
+                } else {
+                    clearInterval(intervalId);
+                }
+            }, 100); // Intervalo de 100 milisegundos entre cada letra
+        }
+
+        
+        function handleClick() {
+            clickCount++;
+
+           
+            if (clickCount === 2) {
+                initStars();
+                showPoem();
+                
+                document.getElementById('startButton').style.display = 'none';
+                document.getElementById('poemContainer').style.display = 'block';
+            }
+        }
+
+        
+        document.getElementById('startButton').addEventListener('click', handleClick);
+    </script>
+</body>
+</html>
