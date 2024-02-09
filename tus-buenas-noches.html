@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lluvia de Estrellas y Poema</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: black;
+            overflow: hidden;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: 2px solid white;
+            background-color: transparent;
+            color: white;
+            cursor: pointer;
+            position: absolute;
+            top: 80px;
+            left: 20px;
+        }
+
+        .star {
+            position: absolute;
+            background-color: white;
+            width: 2px;
+            height: 2px;
+            pointer-events: none;
+        }
+
+        #poemContainer {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 24px;
+            text-align: center;
+            display: none;
+            color: pink;
+        }
+
+        #nameInput {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            padding: 5px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <input type="text" id="nameInput" placeholder="Ingresa tu nombre">
+    <button id="startButton">Mostrar Lluvia de Estrellas</button>
+    <div id="poemContainer"></div>
+
+    <script>
+        document.getElementById('startButton').addEventListener('click', function() {
+            const name = document.getElementById('nameInput').value;
+            document.getElementById('nameInput').style.display = 'none';
+            initStars();
+            showPoem(name);
+            document.getElementById('startButton').style.display = 'none';
+        });
+
+        function createStar() {
+            const star = document.createElement('div');
+            star.classList.add('star');
+            star.style.left = `${Math.random() * window.innerWidth}px`;
+            star.style.top = '0';
+            document.body.appendChild(star);
+            const speed = Math.random() * 5 + 1;
+            const animation = star.animate(
+                [
+                    { transform: `translateY(${window.innerHeight}px)` }
+                ],
+                {
+                    duration: speed * 1000,
+                    iterations: Infinity
+                }
+            );
+            animation.playbackRate = Math.random() * 2 + 0.5;
+        }
+
+        function initStars() {
+            for (let i = 0; i < 100; i++) {
+                setTimeout(createStar, Math.random() * 3000);
+            }
+        }
+
+        function showPoem(name) {
+            const poemContainer = document.getElementById('poemContainer');
+            const poemText = `${name}, este es tu poema de buenas noches:
+            
+            Bajo el manto de la noche oscura, brillan las estrellas con dulzura
+            la luna llena con su luz serena, nos acompaña con su luz amena.
+            En el silencio de la noche fría, se cuela el sueño y nos da alegría,
+            en el abrazo de la noche oscura descansa ahora que el día apura.
+            Que tus sueños sean como un cuento, donde reinen la paz y el amor honesto,
+            que la noche sea tu dulce abrigo, y despiertes con un nuevo amigo.
+            Buenas noches, que sueñes bonito, que el descanso sea tu granito,
+            para enfrentar un nuevo amanecer, con la fuerza que te hace florecer.`;
+
+            let index = 0;
+
+            const intervalId = setInterval(() => {
+                if (index < poemText.length) {
+                    poemContainer.textContent += poemText[index];
+                    index++;
+                } else {
+                    clearInterval(intervalId);
+                }
+            }, 79); 
+
+            poemContainer.style.display = 'block';
+        }
+    </script>
+</body>
+</html>
