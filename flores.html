@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feliz dia de las flores</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            position: relative;
+        }
+        
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            color: #ffa500;
+        }
+        
+        p {
+            color: #ff1493; 
+            line-height: 1.6;
+        }
+        
+        .flower-img {
+            width: 300px;
+            margin-top: 20px;
+            transition: filter 0.3s ease;
+        }
+        
+        .flower-img:hover {
+            filter: brightness(120%);
+        }
+        
+        .button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 10px 20px;
+            background-color: #ffa500;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+       
+        .notebook-paper {
+            width: 400px;
+            height: 500px;
+            background: url('https://flowerbox.pe/wp-content/uploads/2023/03/descarga.jpg') repeat; 
+            border: 2px solid #000;
+            padding: 20px;
+            margin: 50px auto;
+            overflow: auto;
+        }
+    </style>
+</head>
+<body>
+    <button id="moveButton" class="button">Más</button>
+    <div class="container">
+        <h1>Feliz dia de las flores amarillas</h1>
+        <img class="flower-img" src="https://cdn-3.expansion.mx/dims4/default/194060e/2147483647/strip/true/crop/1254x836+0+0/resize/1200x800!/format/webp/quality/60/?url=https%3A%2F%2Fcdn-3.expansion.mx%2Fbe%2F81%2Fbe46281045579e433c104ba25f65%2Fflores-amarillas-marzo-significado.jpg" alt="Flor Amarilla">
+        <p>En el día de las flores amarillas, la naturaleza se llena de luz,<br>
+        Sus pétalos brillan como el sol, irradiando calor y virtud.<br>
+        Oh, qué hermosura es contemplar su resplandor,<br>
+        Y en su fragancia, encontrar paz y amor.<br>
+        En este día especial, celebramos su esplendor,<br>
+        Recordando su belleza, que llena de alegría nuestro corazón.</p>
+    </div>
+
+    <div id="additionalInterface" class="notebook-paper" style="display: none;">
+        <h2>Feliz dia</h2>
+        <p>En el día de las flores amarillas, <br>
+        la naturaleza brilla con alegría,<br>
+        su resplandor nos llena de calma,<br>
+        mientras la brisa nos envuelve con su aroma.<br>
+        Que su belleza nos inspire cada día,<br>
+        y en nuestros sueños florezcan con magia.</p>
+        <button class="button" onclick="closeAdditionalInterface()">Cerrar</button>
+    </div>
+
+    <script>
+        document.getElementById("moveButton").addEventListener("click", function() {
+            document.getElementById("additionalInterface").style.display = "block";
+        });
+
+        function closeAdditionalInterface() {
+            document.getElementById("additionalInterface").style.display = "none";
+        }
+    </script>
+</body>
+</html>
