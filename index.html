@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buscar Información de Teléfono</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        form {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        input, button {
+            padding: 10px;
+            margin: 5px;
+            font-size: 16px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #result {
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+            background: white;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        #result h2 {
+            color: #333;
+        }
+        #result p {
+            font-size: 16px;
+            line-height: 1.5;
+        }
+        .error {
+            color: red;
+        }
+        .info {
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <h1>Buscar Información de Teléfono</h1>
+    <form id="searchForm">
+        <label for="phoneNumber">Número de Teléfono:</label>
+        <input type="text" id="phoneNumber" name="phoneNumber" placeholder="+573023538466" required>
+        <button type="submit">Buscar</button>
+    </form>
+    <div id="result">
+        <!-- Los resultados se mostrarán aquí -->
+    </div>
+
+    <script>
+        document.getElementById('searchForm').addEventListener('submit', async function(event) {
+            event.preventDefault(); // Evitar que el formulario se envíe realmente
+
+            const phoneNumber = document.getElementById('phoneNumber').value;
+            const proxyUrl = '/api/phone'; // Proxy URL
+
+            try {
+                const response = await fetch(`${proxyUrl}?number=${phoneNumber}`);
+                const data = await response.json();
+
+                const resultDiv = document.getElementById('result');
+                if (data.valid) {
+                    resultDiv.innerHTML = `<h2 class="info">Información Encontrada:</h2>
+                                           <p><strong>Nombre del País:</strong> ${data.country_name || 'No disponible'}</p>
+                                           <p><strong>Ubicación:</strong> ${data.location || 'No disponible'}</p>
+                                           <p><strong>Tipo de Línea:</strong> ${data.line_type || 'No disponible'}</p>
+                                           <p><strong>Operador:</strong> ${data.carrier || 'No disponible'}</p>
+                                           <p><strong>Formato Internacional:</strong> ${data.international_format || 'No disponible'}</p>
+                                           <p><strong>Formato Local:</strong> ${data.local_format || 'No disponible'}</p>
+                                           <p><strong>Código de País:</strong> ${data.country_code || 'No disponible'}</p>
+                                           <p><strong>Tipo de Número:</strong> ${data.number_type || 'No disponible'}</p>
+                                           <p><strong>Región:</strong> ${data.region || 'No disponible'}</p>`;
+                } else {
+                    resultDiv.innerHTML = `<p class="error">No se encontró información para el número ingresado.</p>`;
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                const resultDiv = document.getElementById('result');
+                resultDiv.innerHTML = `<p class="error">Hubo un problema al buscar la información.</p>`;
+            }
+        });
+    </script>
+</body>
+</html>
