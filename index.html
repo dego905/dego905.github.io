@@ -1,0 +1,131 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Visión Creativa</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Outfit', sans-serif;
+    }
+    body {
+      background: linear-gradient(to bottom right, #1e1e2f, #121219);
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 20px;
+    }
+    header {
+      font-size: 3rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: #00ffe7;
+      text-shadow: 0 0 10px #00ffe7;
+    }
+    p {
+      font-size: 1.2rem;
+      max-width: 600px;
+      line-height: 1.6;
+      margin-bottom: 2rem;
+      color: #ccc;
+    }
+    section {
+      margin: 40px 0;
+      max-width: 800px;
+    }
+    .portfolio {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+    .portfolio-item {
+      background: #2c2c3e;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0, 255, 231, 0.2);
+    }
+    .portfolio-item h3 {
+      color: #00ffe7;
+      margin-bottom: 10px;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin-top: 20px;
+    }
+    input, textarea {
+      padding: 10px;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+    button {
+      background: #00ffe7;
+      border: none;
+      padding: 15px 30px;
+      font-size: 1rem;
+      font-weight: bold;
+      color: #000;
+      border-radius: 10px;
+      box-shadow: 0 0 20px #00ffe7;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+    button:hover {
+      background: #00c6b7;
+      box-shadow: 0 0 25px #00c6b7;
+    }
+    footer {
+      margin-top: auto;
+      font-size: 0.9rem;
+      color: #888;
+      padding: 20px;
+    }
+  </style>
+</head>
+<body>
+  <header>Visión Creativa</header>
+  <p>Explora la creatividad sin límites con diseños modernos, ideas innovadoras y soluciones visuales que impactan. Te damos la bienvenida al futuro del diseño digital.</p>
+  <button onclick="explorar()">Explorar Ahora</button>  <section id="portafolio">
+    <h2>Portafolio</h2>
+    <div class="portfolio">
+      <div class="portfolio-item">
+        <h3>Sitio Web de Marca</h3>
+        <p>Diseño completo y responsivo para una empresa de tecnología.</p>
+      </div>
+      <div class="portfolio-item">
+        <h3>Landing Page Creativa</h3>
+        <p>Página de destino moderna con animaciones atractivas.</p>
+      </div>
+      <div class="portfolio-item">
+        <h3>Aplicación Web UI</h3>
+        <p>Interfaz amigable para plataforma de gestión empresarial.</p>
+      </div>
+    </div>
+  </section>  <section id="contacto">
+    <h2>Contáctanos</h2>
+    <form onsubmit="enviarMensaje(event)">
+      <input type="text" placeholder="Tu nombre" required>
+      <input type="email" placeholder="Tu correo electrónico" required>
+      <textarea rows="5" placeholder="Tu mensaje" required></textarea>
+      <button type="submit">Enviar</button>
+    </form>
+  </section>  <footer>© 2025 Visión Creativa. Todos los derechos reservados.</footer>  <script>
+    function explorar() {
+      alert("Gracias por tu interés. ¡Muy pronto podrás descubrir más!");
+    }
+
+    function enviarMensaje(e) {
+      e.preventDefault();
+      alert("Gracias por tu mensaje. ¡Nos pondremos en contacto pronto!");
+    }
+  </script></body>
+</html>
