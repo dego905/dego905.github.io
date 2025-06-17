@@ -1,131 +1,305 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Visión Creativa</title>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Juego de Glosario Contact Center</title>
   <style>
-    * {
+    @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap');
+    body {
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
-      font-family: 'Outfit', sans-serif;
-    }
-    body {
-      background: linear-gradient(to bottom right, #1e1e2f, #121219);
-      color: #fff;
-      min-height: 100vh;
+      font-family: 'Nunito', sans-serif;
+      background: #fff8f0;
+      overflow: hidden;
       display: flex;
-      flex-direction: column;
+      justify-content: center;
       align-items: center;
-      text-align: center;
-      padding: 20px;
+      min-height: 100vh;
     }
-    header {
-      font-size: 3rem;
-      font-weight: 700;
-      margin-bottom: 1rem;
-      color: #00ffe7;
-      text-shadow: 0 0 10px #00ffe7;
+    .flores {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
     }
-    p {
-      font-size: 1.2rem;
-      max-width: 600px;
-      line-height: 1.6;
-      margin-bottom: 2rem;
-      color: #ccc;
+    .flores span {
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTiuNC4RPyMRPP9csNQ3kS39-g-PPl_EiMDPw&s');
+      background-size: cover;
+      opacity: 0.4;
+      animation: flotar 15s linear infinite;
     }
-    section {
-      margin: 40px 0;
+    @keyframes flotar {
+      0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+      50% { opacity: 0.5; }
+      100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+    }
+    .game-container {
+      position: relative;
+      z-index: 1;
+      width: 90%;
       max-width: 800px;
+      background: #fff;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      text-align: center;
     }
-    .portfolio {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 20px;
-      margin-top: 20px;
+    h1 {
+      color: #c94f7c;
+      margin-bottom: 20px;
     }
-    .portfolio-item {
-      background: #2c2c3e;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 0 15px rgba(0, 255, 231, 0.2);
+    .question-image {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      border: 2px solid #fcd5ce;
     }
-    .portfolio-item h3 {
-      color: #00ffe7;
-      margin-bottom: 10px;
+    .question-text {
+      font-size: 1.2rem;
+      margin-bottom: 20px;
+      color: #333;
     }
-    form {
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-      margin-top: 20px;
-    }
-    input, textarea {
-      padding: 10px;
-      border: none;
-      border-radius: 8px;
+    .answers button {
+      display: block;
+      width: 100%;
+      margin: 10px 0;
+      padding: 15px;
+      background: #f9e1e1;
+      border: 2px solid #fcd5ce;
+      border-radius: 12px;
       font-size: 1rem;
-    }
-    button {
-      background: #00ffe7;
-      border: none;
-      padding: 15px 30px;
-      font-size: 1rem;
-      font-weight: bold;
-      color: #000;
-      border-radius: 10px;
-      box-shadow: 0 0 20px #00ffe7;
+      color: #5a2a2a;
       cursor: pointer;
-      transition: 0.3s ease;
+      transition: all 0.3s ease;
     }
-    button:hover {
-      background: #00c6b7;
-      box-shadow: 0 0 25px #00c6b7;
+    .answers button:hover {
+      background: #ffc8dd;
     }
-    footer {
-      margin-top: auto;
-      font-size: 0.9rem;
-      color: #888;
-      padding: 20px;
+    .start-btn, .restart-btn {
+      margin-top: 20px;
+      padding: 12px 24px;
+      font-size: 1rem;
+      background: #c94f7c;
+      color: white;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+    }
+    #result {
+      font-size: 1.2rem;
+      color: #5a2a2a;
+      text-align: left;
+    }
+    ul {
+      text-align: left;
     }
   </style>
 </head>
 <body>
-  <header>Visión Creativa</header>
-  <p>Explora la creatividad sin límites con diseños modernos, ideas innovadoras y soluciones visuales que impactan. Te damos la bienvenida al futuro del diseño digital.</p>
-  <button onclick="explorar()">Explorar Ahora</button>  <section id="portafolio">
-    <h2>Portafolio</h2>
-    <div class="portfolio">
-      <div class="portfolio-item">
-        <h3>Sitio Web de Marca</h3>
-        <p>Diseño completo y responsivo para una empresa de tecnología.</p>
-      </div>
-      <div class="portfolio-item">
-        <h3>Landing Page Creativa</h3>
-        <p>Página de destino moderna con animaciones atractivas.</p>
-      </div>
-      <div class="portfolio-item">
-        <h3>Aplicación Web UI</h3>
-        <p>Interfaz amigable para plataforma de gestión empresarial.</p>
-      </div>
-    </div>
-  </section>  <section id="contacto">
-    <h2>Contáctanos</h2>
-    <form onsubmit="enviarMensaje(event)">
-      <input type="text" placeholder="Tu nombre" required>
-      <input type="email" placeholder="Tu correo electrónico" required>
-      <textarea rows="5" placeholder="Tu mensaje" required></textarea>
-      <button type="submit">Enviar</button>
-    </form>
-  </section>  <footer>© 2025 Visión Creativa. Todos los derechos reservados.</footer>  <script>
-    function explorar() {
-      alert("Gracias por tu interés. ¡Muy pronto podrás descubrir más!");
-    }
 
-    function enviarMensaje(e) {
-      e.preventDefault();
-      alert("Gracias por tu mensaje. ¡Nos pondremos en contacto pronto!");
-    }
-  </script></body>
+<div class="flores">
+  <span style="left: 10%; animation-delay: 0s;"></span>
+  <span style="left: 30%; animation-delay: 5s;"></span>
+  <span style="left: 50%; animation-delay: 2s;"></span>
+  <span style="left: 70%; animation-delay: 7s;"></span>
+  <span style="left: 90%; animation-delay: 3s;"></span>
+</div>
+
+<div class="game-container" id="quiz">
+  <h1>🌸 Juego de Glosario🌸</h1>
+  <button class="start-btn" onclick="startGame()">Comenzar</button>
+</div>
+
+<script>
+const preguntas = [
+  {
+    pregunta: "¿Qué es una diadema en un Contact Center?",
+    opciones: [
+      "Una computadora para medir llamadas",
+      "Un auricular con micrófono para hablar manos libres",
+      "Un escritorio compartido",
+      "Un software de gestión"
+    ],
+    correcta: 1,
+    imagen: "https://media.falabella.com/falabellaCO/121181116_01/w=1500,h=1500,fit=pad"
+  },
+  {
+    pregunta: "¿Qué mide la Demora en un Contact Center?",
+    opciones: [
+      "El tiempo que tarda un agente en colgar",
+      "El tiempo de la llamada",
+      "El tiempo que un cliente espera en cola",
+      "El tiempo que dura un mensaje automático"
+    ],
+    correcta: 2,
+    imagen: "https://blog.comparasoftware.com/wp-content/uploads/2021/02/ocupacion-en-un-call-center-1024x576.png"
+  },
+  {
+    pregunta: "¿Qué es el DNIS?",
+    opciones: [
+      "Un sistema de respuesta automática",
+      "Un número de identificación de agente",
+      "Servicio que identifica el número marcado",
+      "Un tipo de extensión telefónica"
+    ],
+    correcta: 2,
+    imagen: "https://support.yeastar.com/hc/en-us/article_attachments/205738798/__13.png"
+  },
+  {
+    pregunta: "¿Qué hace el Distribuidor Automático de Llamadas (ACD)?",
+    opciones: [
+      "Identifica la voz del cliente",
+      "Reproduce música de espera",
+      "Responde y distribuye llamadas entre agentes",
+      "Calcula el salario del agente"
+    ],
+    correcta: 2,
+    imagen: "https://enreach.es/wp-content/uploads/2022/06/imagen-viernes.jpg"
+  },
+  {
+    pregunta: "¿Qué es el enrutamiento basado en habilidades?",
+    opciones: [
+      "Un sistema de entrenamiento para agentes",
+      "Un método de evaluación de llamadas",
+      "Una estrategia para combinar cliente-agente según habilidades",
+      "Un plan de descanso"
+    ],
+    correcta: 2,
+    imagen: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRdapP5TWIS3Cq_BZAwP9FZhs0Zt8LoTKYmgQ&s"
+  },
+  {
+    pregunta: "¿Qué es el enrutamiento condicional?",
+    opciones: [
+      "Cuando se priorizan llamadas VIP",
+      "Uso de condiciones como 'si-entonces' para enrutar llamadas",
+      "Un sistema de grabación de llamadas",
+      "Asignación de tareas post-llamada"
+    ],
+    correcta: 1,
+    imagen: "https://www.oki-toki.cc/wp-content/uploads/2020/05/80.png"
+  },
+  {
+    pregunta: "¿Quién fue Erlang A.K.?",
+    opciones: [
+      "Un ingeniero que creó fórmulas de tráfico telefónico",
+      "El fundador de un call center",
+      "Un agente modelo",
+      "Un jefe de soporte técnico"
+    ],
+    correcta: 0,
+    imagen: "https://www.ecured.cu/images/thumb/c/c1/Agner_Krarup_Erlang.jpg/260px-Agner_Krarup_Erlang.jpg"
+  },
+  {
+    pregunta: "¿Qué es una estación de trabajo en un Contact Center?",
+    opciones: [
+      "Un software para recibir llamadas",
+      "El espacio físico donde trabaja el agente",
+      "Un tipo de silla ergonómica",
+      "Una base de datos"
+    ],
+    correcta: 1,
+    imagen: "https://www.tecnimuebles.com/wp-content/uploads/2022/04/ET-102.jpg"
+  },
+  {
+    pregunta: "¿Qué indica el Estado del Agente?",
+    opciones: [
+      "El humor del agente",
+      "La zona horaria",
+      "Su modo de trabajo actual (en llamada, disponible, etc.)",
+      "Su salario mensual"
+    ],
+    correcta: 2,
+    imagen: "https://omniawfm.com/blog/images/eficiencia-agentes-de-call-center.jpg"
+  },
+  {
+    pregunta: "¿Qué es el Help Desk?",
+    opciones: [
+      "Una app de entretenimiento",
+      "Una función que gestiona requerimientos de soporte",
+      "Un tipo de teléfono avanzado",
+      "Un chatbot de marketing"
+    ],
+    correcta: 1,
+    imagen: "https://www.servicetonic.com/wp-content/uploads/2021/05/que-es-un-software-de-help-desk.jpg"
+  }
+];
+
+let preguntaActual = 0;
+let puntaje = 0;
+let respuestasCorrectas = [];
+let respuestasIncorrectas = [];
+
+function startGame() {
+  preguntaActual = 0;
+  puntaje = 0;
+  respuestasCorrectas = [];
+  respuestasIncorrectas = [];
+  mostrarPregunta();
+}
+
+function mostrarPregunta() {
+  const q = preguntas[preguntaActual];
+  const quiz = document.getElementById("quiz");
+  quiz.innerHTML = `
+    <h1>🌸 Juego de Glosario🌸</h1>
+    <img class="question-image" src="${q.imagen}?v=${Math.random()}" />
+    <div class="question-text">${q.pregunta}</div>
+    <div class="answers">
+      ${q.opciones.map((op, i) => `<button onclick="verificar(${i})">${op}</button>`).join('')}
+    </div>
+  `;
+}
+
+function verificar(indice) {
+  const pregunta = preguntas[preguntaActual];
+  if (indice === pregunta.correcta) {
+    puntaje++;
+    respuestasCorrectas.push(pregunta.pregunta);
+  } else {
+    respuestasIncorrectas.push({
+      pregunta: pregunta.pregunta,
+      respuestaCorrecta: pregunta.opciones[pregunta.correcta]
+    });
+  }
+
+  preguntaActual++;
+  if (preguntaActual < preguntas.length) {
+    mostrarPregunta();
+  } else {
+    mostrarResultado();
+  }
+}
+
+function mostrarResultado() {
+  const quiz = document.getElementById("quiz");
+  const malas = respuestasIncorrectas.map(r => `
+    <li><strong>${r.pregunta}</strong><br>Respuesta correcta: ${r.respuestaCorrecta}</li>
+  `).join('');
+  const buenas = respuestasCorrectas.map(p => `<li>${p}</li>`).join('');
+
+  quiz.innerHTML = `
+    <h1>🌸 Resultado Final🌸</h1>
+    <div id="result">
+      <p>Puntaje final: <strong>${puntaje}</strong> de ${preguntas.length}</p>
+      <h3>✅ Preguntas correctas:</h3>
+      <ul>${buenas}</ul>
+      <h3>❌ Preguntas incorrectas:</h3>
+      <ul>${malas}</ul>
+    </div>
+    <button class="restart-btn" onclick="startGame()">Jugar otra vez</button>
+  `;
+}
+</script>
+
+</body>
 </html>
